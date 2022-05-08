@@ -138,10 +138,11 @@ class Color(models.Model):
 class Product(models.Model):
     product_group = models.ForeignKey('ProductGroup', null=False, blank=False, on_delete=models.CASCADE)
     category = models.ForeignKey('Category', null=False, blank=False, on_delete=models.CASCADE)
-    ean_code = models.CharField(max_length=13, validators=[MinLengthValidator(13)], unique=True, null=False, blank=False)
+    code = models.CharField(max_length=15, validators=[MinLengthValidator(15)], unique=True, null=False, blank=False)
     size = models.ForeignKey('Size', null=False, blank=False, on_delete=models.CASCADE)
     color = models.ForeignKey('Color', null=False, blank=False, on_delete=models.CASCADE)
     name = models.CharField(max_length=254)
+    display_name = models.CharField(max_length=254, null=True, blank=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
@@ -149,3 +150,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_display_name(self):
+        return self.display_name
+
+    def save(self, *args, **kwargs):
+        """
+        Override the original save method to set the name.
+        """
+        self.name = self.display_name.replace(" ", "_").lower()
+        super().save(*args, **kwargs)

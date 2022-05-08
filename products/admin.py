@@ -6,6 +6,7 @@ from .models import (
     ProductDesignGroup,
     Size,
     Color,
+    Product,
 )
 
 
@@ -60,6 +61,21 @@ class ColorAdmin(admin.ModelAdmin):
     list_display = (
         'display_name',
         'name',
+    )
+
+
+class ProductAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', )
+    list_display = (
+        'product_group',
+        'category',
+        'code',
+        'display_name',
+        'name',
+        'description',
+        'size',
+        'color',
+        'price',
     )
 
 
