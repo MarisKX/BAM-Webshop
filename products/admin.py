@@ -4,6 +4,8 @@ from .models import (
     ProductGroup,
     DesignCategory,
     ProductDesignGroup,
+    Size,
+    Color,
 )
 
 
@@ -15,7 +17,7 @@ class CategoryAdmin(admin.TabularInline):
         'display_name',
         'name',
     )
-    
+
 
 class ProductGroupAdmin(admin.ModelAdmin):
     inlines = (CategoryAdmin,)
@@ -34,7 +36,7 @@ class DesignCategoryAdmin(admin.TabularInline):
         'display_name',
         'name',
     )
-    
+
 
 class ProductDesignGroupAdmin(admin.ModelAdmin):
     inlines = (DesignCategoryAdmin,)
@@ -45,5 +47,23 @@ class ProductDesignGroupAdmin(admin.ModelAdmin):
     )
 
 
+class SizeAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', )
+    list_display = (
+        'display_name',
+        'name',
+    )
+
+
+class ColorAdmin(admin.ModelAdmin):
+    readonly_fields = ('name', )
+    list_display = (
+        'display_name',
+        'name',
+    )
+
+
 admin.site.register(ProductGroup, ProductGroupAdmin)
 admin.site.register(ProductDesignGroup, ProductDesignGroupAdmin)
+admin.site.register(Size, SizeAdmin)
+admin.site.register(Color, ColorAdmin)
