@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://8090-mariskx-bamwebshop-b2l7fcjp6tg.ws-eu43.gitpod.io', ]
+CSRF_TRUSTED_ORIGINS = ['https://8090-mariskx-bamwebshop-b2l7fcjp6tg.ws-eu44.gitpod.io', ]
 
 AUTHENTICATION_BACKENDS = [
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -62,6 +62,7 @@ INSTALLED_APPS = [
 
     # custom apps
     'home',
+    'products',
 ]
 
 # Provider specific settings
