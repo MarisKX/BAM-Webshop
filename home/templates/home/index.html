@@ -15,8 +15,72 @@
 {% block content %}
     <div class="container main-container h-100">
         <div class="row">
-            <div class="col display-4 text-danger">Done!</div>
-
+            <div class="col display-5 text-success">All Products</div>
+        </div>
+        <div class="row">
+        {% for product in products %}
+            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <div class="card border-0">
+                    {% for image in product_images %}
+                        {% if image.product == product %}
+                            {% if image.image %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ image.image.url }}" alt="{{ product.name }}">
+                                </a>
+                            {% else %}
+                                <a href="">
+                                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}no-image.png" alt="{{ product.name }}">
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="card-body pb-0">
+                        <p class="mb-0">{{ product.display_name }}</p>
+                    </div>
+                    <div class="card-footer bg-white pt-0 border-0 text-left">
+                        <div class="row">
+                             <div class="col">
+                                <p class="lead mb-0 text-left font-weight-bold">{{ product.price }} Eur</p>
+                                {% if product.product_group %}
+                                    <p class="small mt-1 mb-0">
+                                        <a class="text-muted" href="">
+                                            <i class="fas fa-tag mr-1"></i> {{ product.product_group.display_name }}
+                                        </a>
+                                    </p>
+                                {% endif %}
+                                {% if product.category %}
+                                    <p class="small mt-1 mb-0">
+                                        <a class="text-muted" href="">
+                                            <i class="fas fa-tag mr-1"></i> {{ product.category.display_name }}
+                                        </a>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:1 %}
+                <div class="col-12 d-sm-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}                        
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:4 %}
+                <div class="col-12 d-none d-xl-block mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+        {% endfor %}
         </div>
     </div>
 {% endblock %}
